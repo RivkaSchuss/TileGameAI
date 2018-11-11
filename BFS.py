@@ -15,8 +15,8 @@ class BFS(object):
             current_node = open_list.pop(0)
             closed_list.add(current_node)
             if self.logic.goal_state_check(current_node):
-                return self.logic.cycle_back()
-            sons = self.logic.next_states(current_node)
+                return self.logic.cycle_back(current_node)
+            sons = self.logic.get_next_moves(current_node)
             for son in sons:
                 if son not in closed_list:
                     open_list.append(son)
