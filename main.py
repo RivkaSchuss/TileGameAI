@@ -2,19 +2,20 @@ from Astar import Astar
 from BFS import BFS
 from IDS import IDS
 from GameLogic import GameLogic
+from GameLogic import State
 
 
 def run_algorithm(algorithm, board, board_size):
 
     logic = GameLogic(board, board_size)
     if algorithm == 1:
-        ids = IDS(board, logic)
+        ids = IDS(State(board, None), logic)
         chosen = ids.run_search()
     elif algorithm == 2:
-        bfs = BFS(board, logic)
+        bfs = BFS(State(board, None), logic)
         chosen = bfs.run_search()
     elif algorithm == 3:
-        a_star = Astar(board, logic)
+        a_star = Astar(State(board, None), logic)
         chosen = a_star.run_search()
     else:
         raise Exception("No algorithm was chosen")
