@@ -27,19 +27,23 @@ class GameLogic(object):
         move_left = board[0], board[1] - 1
 
         #up
-        if
+        #if
 
         #down
 
         #right
 
         #left
-
         return result
 
-    def cycle_back(self, goal):
-        path = []
-        current = goal
+    def construct_path(self, state, path_formed):
+        action_list = list()
+
+        while path_formed[state][0] is not None:
+            state, action = path_formed[state]
+            action_list.append(action)
+        action_list.reverse()
+        return action_list
 
     def get_location(self):
         for row in range(self.board_size):
