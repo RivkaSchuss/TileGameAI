@@ -7,7 +7,7 @@ from GameLogic import State
 
 def run_algorithm(algorithm, board, board_size):
 
-    logic = GameLogic(board, board_size)
+    logic = GameLogic(State(board, None), board_size)
     if algorithm == 1:
         ids = IDS(State(board, None), logic)
         chosen = ids.run_search()
@@ -20,8 +20,9 @@ def run_algorithm(algorithm, board, board_size):
     else:
         raise Exception("No algorithm was chosen")
     if chosen is not None:
+        to_print = ' '.join(map(str, chosen))
         with open('output.txt', 'w') as output_file:
-            output_file.write(' '.join(chosen))
+            output_file.write(to_print)
 
 
 def create_board(board_size, board_string):
