@@ -80,7 +80,7 @@ class GameLogic(object):
 
 
 class State:
-    def __init__(self, board, move=None, previous=None, depth=None):
+    def __init__(self, board, move=None, previous=None, depth=0):
         self.board = board
         self.move = move
         self.previous = previous

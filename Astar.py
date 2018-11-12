@@ -9,12 +9,12 @@ class Astar(object):
         result = []
         open_list = []
         closed_list = []
-
         initial_state = self.state
         open_list.append(initial_state)
 
         while len(open_list):
             current_node = self.open_list.pop(0)
+            current_node.depth += 1
             closed_list.append(current_node)
 
             if self.logic.goal_state_check(current_node):
@@ -36,18 +36,18 @@ class Astar(object):
         return cost
 
     def get_f(self, state):
-        return state.depth + self.get_manhattan_sum(state)
+        return state.depth + self.get_heuristic_sum(state)
 
-    def get_manhattan_sum(self, state):
-        manhattan_sum = None
+    def get_heuristic_sum(self, state):
+        heuristic_sum = None
         board_size = self.logic.board_size
         for i in range(board_size):
             for j in range(board_size):
-                manhattan_sum += self.get_manhattan_distance(state.board[i][j], i, j)
+                heuristic_sum += self.heuristic_func(state.board[i][j], i, j)
 
-        return manhattan_sum
+        return heuristic_sum
 
-    def get_manhattan_distance(self, tile, row, col):
+    def heuristic_func(self, tile, row, col):
         board_size = self.logic.board_size
         if tile == 0:
             return abs(row - board_size - 1) + abs(col - board_size - 1)
