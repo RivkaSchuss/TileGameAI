@@ -1,4 +1,6 @@
-from copy import copy, deepcopy
+from copy import deepcopy
+
+
 class GameLogic(object):
 
     def __init__(self, state, board_size):
@@ -28,36 +30,35 @@ class GameLogic(object):
         if self.check_valid(piece_below):
             copied = deepcopy(state.board)
             self.swap(empty_space, piece_below, copied)
-            state_to_add = State(copied, 'U')
+            state_to_add = State(copied, 'U', state)
             result.append(state_to_add)
         # move down
         if self.check_valid(piece_above):
             copied = deepcopy(state.board)
             self.swap(empty_space, piece_above, copied)
-            state_to_add = State(copied, 'D')
+            state_to_add = State(copied, 'D', state)
             result.append(state_to_add)
         # move left
         if self.check_valid(piece_right):
             copied = deepcopy(state.board)
             self.swap(empty_space, piece_right, copied)
-            state_to_add = State(copied, 'L')
+            state_to_add = State(copied, 'L', state)
             result.append(state_to_add)
         # move right
         if self.check_valid(piece_left):
             copied = deepcopy(state.board)
             self.swap(empty_space, piece_left, copied)
-            state_to_add = State(copied, 'R')
+            state_to_add = State(copied, 'R', state)
             result.append(state_to_add)
         return result
 
-    def construct_path(self, father, path_formed):
-        action_list = list()
-
-        while path_formed[father].move is not None:
-            father = path_formed[father]
-            action_list.append(father.move)
-
-        action_list.reverse()
+    def construct_path(self, final_state):
+        action_list = []
+        current_node = final_state
+        while current_node.previous is not None:
+            action_list.insert(0, current_node.move)
+            current_node = current_node.previous
+        #action_list.reverse()
         return action_list
 
     def check_valid(self, position):
@@ -78,6 +79,14 @@ class GameLogic(object):
 
 
 class State:
+    def __init__(self, board, move, previous):
+        self.board = board
+        self.move = move
+        self.previous = previous
+
+
+class HeuristicState:
     def __init__(self, board, move):
         self.board = board
         self.move = move
+

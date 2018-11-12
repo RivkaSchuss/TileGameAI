@@ -7,15 +7,15 @@ from GameLogic import State
 
 def run_algorithm(algorithm, board, board_size):
 
-    logic = GameLogic(State(board, None), board_size)
+    logic = GameLogic(State(board, None, None), board_size)
     if algorithm == 1:
-        ids = IDS(State(board, None), logic)
+        ids = IDS(State(board, None, None), logic)
         chosen = ids.run_search()
     elif algorithm == 2:
-        bfs = BFS(State(board, None), logic)
+        bfs = BFS(State(board, None, None), logic)
         chosen = bfs.run_search()
     elif algorithm == 3:
-        a_star = Astar(State(board, None), logic)
+        a_star = Astar(State(board, None, None), logic)
         chosen = a_star.run_search()
     else:
         raise Exception("No algorithm was chosen")

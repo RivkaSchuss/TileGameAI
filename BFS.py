@@ -1,13 +1,10 @@
-import Queue
-
-
 class BFS(object):
     def __init__(self, state, logic):
         self.state = state
         self.logic = logic
 
     def run_search(self):
-        open_list = list()
+        open_list = []
         closed_list = list()
         path_formed = dict()
         initial_state = self.logic.get_initial_state()
@@ -19,7 +16,7 @@ class BFS(object):
             closed_list.append(current_node)
 
             if self.logic.goal_state_check(current_node):
-                path = "".join(self.logic.construct_path(current_node, path_formed))
+                path = "".join(self.logic.construct_path(current_node))
                 return path, str(len(closed_list)), '0'
 
             children = self.logic.get_next_moves(current_node)
@@ -27,7 +24,7 @@ class BFS(object):
                 if child in closed_list:
                     continue
                 if child not in open_list:
-                    path_formed[child] = current_node
+                    # path_formed[child] = current_node
                     open_list.append(child)
 
         raise Exception("Puzzle can not be solved.")
