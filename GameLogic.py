@@ -55,10 +55,11 @@ class GameLogic(object):
     def construct_path(self, final_state):
         action_list = []
         current_node = final_state
+
         while current_node.previous is not None:
             action_list.insert(0, current_node.move)
             current_node = current_node.previous
-        #action_list.reverse()
+
         return action_list
 
     def check_valid(self, position):
@@ -79,10 +80,11 @@ class GameLogic(object):
 
 
 class State:
-    def __init__(self, board, move, previous):
+    def __init__(self, board, move=None, previous=None, depth=None):
         self.board = board
         self.move = move
         self.previous = previous
+        self.depth = depth
 
 
 class HeuristicState:

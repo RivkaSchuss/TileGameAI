@@ -1,14 +1,44 @@
-from GameLogic import GameLogic
+from copy import deepcopy
 
 
 class IDS(object):
-    def __init__(self, board, logic):
-        self.board = board
+    def __init__(self, state, logic):
+        self.state = state
         self.logic = logic
+        self.checked = 1
 
     def run_search(self):
-        result = "ids has been chosen"
-        initial_state = self.logic.get_initial_state()
+        result = None
+        limit = 1
+
+        while not result:
+            self.checked = 0
+            result = self.limited_DFS(self.state, 1, limit)
+            limit += 1
+
         return result
+
+    def limited_DFS(self, initial_state, iteration, limit=1):
+        current_node = deepcopy(initial_state)
+        self.checked += 1
+
+        if self.logic.goal_state_check(current_node):
+            path = "".join(self.logic.construct_path(current_node))
+            return path, self.checked, str(iteration)
+
+        if iteration == limit:
+            return None
+
+        children = self.logic.get_next_moves(current_node)
+        for child in children:
+            result = self.limited_DFS(child, iteration + 1, limit)
+            if result is not None:
+                return result
+
+        return None
+
+
+
+
 
 

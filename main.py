@@ -7,15 +7,15 @@ from GameLogic import State
 
 def run_algorithm(algorithm, board, board_size):
 
-    logic = GameLogic(State(board, None, None), board_size)
+    logic = GameLogic(State(board), board_size)
     if algorithm == 1:
-        ids = IDS(State(board, None, None), logic)
+        ids = IDS(State(board), logic)
         chosen = ids.run_search()
     elif algorithm == 2:
-        bfs = BFS(State(board, None, None), logic)
+        bfs = BFS(State(board), logic)
         chosen = bfs.run_search()
     elif algorithm == 3:
-        a_star = Astar(State(board, None, None), logic)
+        a_star = Astar(State(board), logic)
         chosen = a_star.run_search()
     else:
         raise Exception("No algorithm was chosen")
@@ -37,13 +37,12 @@ def create_board(board_size, board_string):
 
 
 def main():
-    with open('input.txt') as input_file:
+    with open('input2.txt') as input_file:
         args = input_file.read().splitlines()
 
     algorithm = int(args[0])
     board_size = int(args[1])
     board = create_board(board_size, args[2])
-    print board
     run_algorithm(algorithm, board, board_size)
 
 

@@ -6,7 +6,6 @@ class BFS(object):
     def run_search(self):
         open_list = []
         closed_list = list()
-        path_formed = dict()
         initial_state = self.logic.get_initial_state()
 
         open_list.append(initial_state)
