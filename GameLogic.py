@@ -87,8 +87,3 @@ class State:
         self.depth = depth
 
 
-class HeuristicState:
-    def __init__(self, board, move):
-        self.board = board
-        self.move = move
-
