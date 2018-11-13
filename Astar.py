@@ -3,17 +3,16 @@ class Astar(object):
     def __init__(self, state, logic):
         self.state = state
         self.logic = logic
-        self.open_list = []
 
     def run_search(self):
         result = []
         open_list = []
         closed_list = []
-        initial_state = self.state
+        initial_state = self.logic.get_initial_state()
         open_list.append(initial_state)
 
         while len(open_list):
-            current_node = self.open_list.pop(0)
+            current_node = open_list.pop(0)
             current_node.depth += 1
             closed_list.append(current_node)
 
@@ -29,7 +28,7 @@ class Astar(object):
         return result
 
     def calculate_trip_cost(self, state):
-        cost = None
+        cost = 0
         while state is not None:
             cost += self.get_f(state)
             state = state.previous
@@ -39,7 +38,7 @@ class Astar(object):
         return state.depth + self.get_heuristic_sum(state)
 
     def get_heuristic_sum(self, state):
-        heuristic_sum = None
+        heuristic_sum = 0
         board_size = self.logic.board_size
         for i in range(board_size):
             for j in range(board_size):
@@ -52,8 +51,8 @@ class Astar(object):
         if tile == 0:
             return abs(row - board_size - 1) + abs(col - board_size - 1)
 
-        moved_row = int(round(tile/board_size) - 1)
-        moved_col = (tile % board_size + (board_size - 1)) % board_size
+        moved_row = int(round(int(tile)/board_size) - 1)
+        moved_col = (int(tile) % board_size + (board_size - 1)) % board_size
         return abs(row - moved_row) + abs(col - moved_col)
 
 

@@ -21,7 +21,7 @@ def run_algorithm(algorithm, board, board_size):
         raise Exception("No algorithm was chosen")
     if chosen is not None:
         to_print = ' '.join(map(str, chosen))
-        with open('output.txt', 'w') as output_file:
+        with open('output2.txt', 'w') as output_file:
             output_file.write(to_print)
 
 

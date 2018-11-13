@@ -18,9 +18,12 @@ class IDS(object):
 
         return result
 
-    def limited_DFS(self, initial_state, iteration, limit=1):
+    def limited_DFS(self, initial_state, iteration=0, limit=1):
         current_node = deepcopy(initial_state)
         self.checked += 1
+        print self.checked
+        if self.checked == 12:
+            print "stop"
 
         if self.logic.goal_state_check(current_node):
             path = "".join(self.logic.construct_path(current_node))
