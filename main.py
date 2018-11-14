@@ -1,3 +1,5 @@
+import sys
+
 from Astar import Astar
 from BFS import BFS
 from IDS import IDS
@@ -21,7 +23,7 @@ def run_algorithm(algorithm, board, board_size):
         raise Exception("No algorithm was chosen")
     if chosen is not None:
         to_print = ' '.join(map(str, chosen))
-        with open('output2.txt', 'w') as output_file:
+        with open('output.txt', 'w') as output_file:
             output_file.write(to_print)
 
 
@@ -37,7 +39,7 @@ def create_board(board_size, board_string):
 
 
 def main():
-    with open('input2.txt') as input_file:
+    with open(sys.argv[1]) as input_file:
         args = input_file.read().splitlines()
 
     algorithm = int(args[0])

@@ -80,10 +80,18 @@ class GameLogic(object):
 
 
 class State:
-    def __init__(self, board, move=None, previous=None, depth=0):
+    def __init__(self, board, move=None, previous=None, depth=0, heuristic=0):
         self.board = board
         self.move = move
         self.previous = previous
         self.depth = depth
+        self.heuristic = heuristic
+
+    @property
+    def get_f(self):
+        return self.depth+self.heuristic
+
+    def __hash__(self):
+        return hash(str(self.board))
 
 
