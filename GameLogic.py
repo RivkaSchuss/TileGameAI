@@ -10,6 +10,9 @@ class GameLogic(object):
     def get_initial_state(self):
         return self.state
 
+    """
+    checks if we've arrived at the goal state
+    """
     def goal_state_check(self, state):
         count = 1
         for row in state.board:
@@ -19,9 +22,13 @@ class GameLogic(object):
                 count += 1
         return True
 
+    """
+    gets the next possible moves for the current node
+    """
     def get_next_moves(self, state):
         result = list()
         empty_space = self.get_empty_space(state)
+        # defining the pieces surrounding the empty space
         piece_above = empty_space[0] - 1, empty_space[1]
         piece_below = empty_space[0] + 1, empty_space[1]
         piece_right = empty_space[0], empty_space[1] + 1
@@ -52,6 +59,10 @@ class GameLogic(object):
             result.append(state_to_add)
         return result
 
+    """
+    backtracks and constructs the path based on the actions performed to arrive
+    at the goal state
+    """
     def construct_path(self, final_state):
         action_list = []
         current_node = final_state
@@ -62,9 +73,13 @@ class GameLogic(object):
 
         return action_list
 
+    # checks if the move is a valid move
     def check_valid(self, position):
         return 0 <= position[0] < self.board_size and 0 <= position[1] < self.board_size
 
+    """
+    find the empty space on the board
+    """
     def get_empty_space(self, state):
         for row in range(self.board_size):
             for col in range(self.board_size):
@@ -72,6 +87,9 @@ class GameLogic(object):
                     return row, col
         return -1, -1
 
+    """
+    swaps the piece to move with the empty space
+    """
     def swap(self, empty_space, piece_moved, board):
         empty_space_i, empty_space_j = empty_space[0], empty_space[1]
         piece_i, piece_j = piece_moved[0], piece_moved[1]
@@ -79,6 +97,9 @@ class GameLogic(object):
             board[empty_space_i][empty_space_j], board[piece_i][piece_j]
 
 
+"""
+defining a class state to hold the game board as well as other properties
+"""
 class State:
     def __init__(self, board, move=None, previous=None, depth=0, heuristic=0):
         self.board = board
@@ -89,7 +110,7 @@ class State:
 
     @property
     def get_f(self):
-        return self.depth+self.heuristic
+        return self.depth + self.heuristic
 
     def __hash__(self):
         return hash(str(self.board))
