@@ -13,17 +13,15 @@ class IDS(object):
 
         while not result:
             self.checked = 0
-            result = self.limited_DFS(self.state, 1, limit)
+            result = self.limited_DFS(self.state, 0, limit)
             limit += 1
 
         return result
 
-    def limited_DFS(self, initial_state, iteration=0, limit=1):
+    def limited_DFS(self, initial_state, iteration=0, limit=0):
         current_node = deepcopy(initial_state)
         self.checked += 1
         print self.checked
-        if self.checked == 12:
-            print "stop"
 
         if self.logic.goal_state_check(current_node):
             path = "".join(self.logic.construct_path(current_node))
