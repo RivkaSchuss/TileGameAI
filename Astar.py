@@ -5,22 +5,8 @@ class Astar(object):
     def __init__(self, state, logic):
         self.state = state
         self.logic = logic
-        self.goal = self.build_goal(self.logic.board_size)
-
-    def build_goal(self, board_size):
-        count = 1
-        board = []
-        for row in range(board_size):
-            added_row = []
-            for col in range(board_size):
-                added_row.append(count)
-                count += 1
-            board.append(added_row)
-        board[board_size - 1][board_size - 1] = 0
-        return board
 
     def run_search(self):
-        from heapq import heappop,heappush
         open_list = []
         closed_list = set()
         initial_state = self.logic.get_initial_state()
