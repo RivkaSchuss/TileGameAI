@@ -28,6 +28,7 @@ def run_algorithm(algorithm, board, board_size):
         with open('output.txt', 'w') as output_file:
             output_file.write(to_print)
 
+
 """
 parses the board and creates a matrix with the tiles
 """
@@ -44,7 +45,7 @@ def create_board(board_size, board_string):
 
 def main():
     # opens the input file
-    with open(sys.argv[1]) as input_file:
+    with open("input.txt") as input_file:
         args = input_file.read().splitlines()
 
     # parses the input file

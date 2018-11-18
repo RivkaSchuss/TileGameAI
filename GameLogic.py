@@ -100,6 +100,8 @@ class GameLogic(object):
 """
 defining a class state to hold the game board as well as other properties
 """
+
+
 class State:
     def __init__(self, board, move=None, previous=None, depth=0, heuristic=0):
         self.board = board
