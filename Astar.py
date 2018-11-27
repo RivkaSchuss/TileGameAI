@@ -29,7 +29,7 @@ class Astar(object):
                 return path, str(len(closed_list) + 1), len(path)
 
             # if we've already checked this state, move on.
-            if current_node in closed_list:
+            if hash(str(current_node.board)) in closed_list:
                 continue
 
             # get the successors of the current state
@@ -42,7 +42,7 @@ class Astar(object):
                 heappush(open_list, (child.get_f, child))
 
             # add the node that has been checked to the closed list
-            closed_list.add(current_node)
+            closed_list.add(hash(str(current_node.board)))
 
         raise Exception("Puzzle can not be solved.")
 
