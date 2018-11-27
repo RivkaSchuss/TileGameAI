@@ -11,34 +11,38 @@ class Astar(object):
     """
     def run_search(self):
         open_list = []
-        counter = 0
-        # defining the initial state's depth and heuristic value
+        closed_list = set()
+        # initializing the first state
         initial_state = self.logic.get_initial_state()
         initial_state.depth = 0
         initial_state.heuristic = self.calculate_trip_cost(initial_state)
 
-        # adding the initial state into the open list heap, and calculating its f
+        # adding the first state to the heap, with the condition being the f of the state
         heappush(open_list, (initial_state.get_f, initial_state))
 
         while open_list:
             current_node = heappop(open_list)[1]
 
-            # if we've arrived at the goal state
+            # check if we've arrived at the goal state
             if self.logic.goal_state_check(current_node):
                 path = "".join(self.logic.construct_path(current_node))
-                return path, str(counter), len(path)
+                return path, str(len(closed_list) + 1), len(path)
 
-            # defining the current node's successors
+            # if we've already checked this state, move on.
+            if current_node in closed_list:
+                continue
+
+            # get the successors of the current state
             children = self.logic.get_next_moves(current_node)
 
-            # comparing the successors
+            # iterate over the successors and calculate their f's, enter them into the heap
             for child in children:
                 child.depth = current_node.depth + 1
                 child.heuristic = self.calculate_trip_cost(child)
                 heappush(open_list, (child.get_f, child))
 
-            # raising the counter of the nodes that have been checked
-            counter += 1
+            # add the node that has been checked to the closed list
+            closed_list.add(current_node)
 
         raise Exception("Puzzle can not be solved.")
 
