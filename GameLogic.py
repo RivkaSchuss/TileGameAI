@@ -109,6 +109,7 @@ class State:
         self.previous = previous
         self.depth = depth
         self.heuristic = heuristic
+        self.f = self.depth + self.heuristic
 
     @property
     def get_f(self):
@@ -116,5 +117,17 @@ class State:
 
     def __hash__(self):
         return hash(str(self.board))
+
+    def __eq__(self, other):
+        return self.board == other.board
+
+    def state_string(self):
+        return ','.join(str(x) for x in self.board)
+
+    def __repr__(self):
+        return '<' + self.state_string() + '>'
+
+    def __lt__(self, other):
+        return self.f < other.f
 
 
